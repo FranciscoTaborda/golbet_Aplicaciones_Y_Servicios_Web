@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="GolBet.Entities/GolBet.Entities.csproj" Id="4bffeddc-6e2f-4e59-ac5b-f3f6c32e0676" />
+  <Project Path="GolBet.Repositories/GolBet.Repositories.csproj" Id="34ffe0e2-9d7b-47d8-8269-c71207f8d1b0" />
+  <Project Path="GolBet.Services/GolBet.Services.csproj" Id="780b6cde-e511-4a95-97e0-842af184b8e3" />
+  <Project Path="GolBet.Web/GolBet.Web.csproj" Id="e31a3802-205d-4ff9-a15c-d44f3c06d52c" />
+</Solution>
