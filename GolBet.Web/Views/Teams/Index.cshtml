@@ -1,0 +1,36 @@
+﻿@model IEnumerable<GolBet.Services.DTOs.TeamDto>
+
+@{
+    ViewData["Title"] = "Equipos";
+}
+
+<h2 class="mb-4">Equipos Registrados</h2>
+
+<table class="table table-striped align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th>Escudo</th>
+            <th>Nombre</th>
+            <th>Ciudad</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var team in Model)
+        {
+            <tr>
+                <td>
+                    @if (!string.IsNullOrEmpty(team.CrestUrl))
+                    {
+                        <img src="@team.CrestUrl" alt="@team.Name" style="width: 50px; height: 50px; object-fit: contain;" />
+                    }
+                    else
+                    {
+                        <span class="text-muted">Sin escudo</span>
+                    }
+                </td>
+                <td>@team.Name</td>
+                <td>@team.City</td>
+            </tr>
+        }
+    </tbody>
+</table>

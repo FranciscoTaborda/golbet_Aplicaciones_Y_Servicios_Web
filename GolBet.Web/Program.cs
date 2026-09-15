@@ -18,6 +18,8 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 builder.Services.AddScoped<IMatchService, MatchService>();
 
+builder.Services.AddScoped<ITeamService, TeamService>();
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

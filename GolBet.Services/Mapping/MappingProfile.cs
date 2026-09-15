@@ -17,6 +17,7 @@ public class MappingProfile : Profile
         // MatchDto.HomeTeamName  <- Match.HomeTeam.Name
         // MatchDto.AwayTeamCrestUrl <- Match.AwayTeam.CrestUrl
         CreateMap<Match, MatchDto>();
+        CreateMap<Team, TeamDto>();
     }
 }
 
