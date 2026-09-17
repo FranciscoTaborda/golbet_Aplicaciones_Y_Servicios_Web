@@ -18,10 +18,9 @@ public class GenericRepository<T> : IGenericRepository<T> where T : AuditableEnt
     public GenericRepository(AppDbContext context)
     {
         _context = context;
-        _dbSet = context.Set<T>();   // resolves the DbSet for T at runtime
+        _dbSet = context.Set<T>();
     }
 
-    // ---- Queries ----
 
     public virtual async Task<IEnumerable<T>> GetAllAsync(bool includeInactive = false)
     {
@@ -36,12 +35,11 @@ public class GenericRepository<T> : IGenericRepository<T> where T : AuditableEnt
     public virtual async Task<T?> GetByIdAsync(int id)
         => await _dbSet.FindAsync(id);
 
-    // ---- Commands ----
 
     public async Task<T> AddAsync(T entity)
     {
         await _dbSet.AddAsync(entity);
-        await _context.SaveChangesAsync();   // audit stamps applied here (Module 2)
+        await _context.SaveChangesAsync();
         return entity;
     }
 
@@ -56,7 +54,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : AuditableEnt
         var entity = await _dbSet.FindAsync(id);
         if (entity is null) return;
 
-        entity.IsActive = false;             // logical delete
-        await _context.SaveChangesAsync();   // tracked as Modified -> gets ModifiedDate
+        entity.IsActive = false;
+        await _context.SaveChangesAsync();
     }
 }

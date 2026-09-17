@@ -13,11 +13,9 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        // Flattening by convention:
-        // MatchDto.HomeTeamName  <- Match.HomeTeam.Name
-        // MatchDto.AwayTeamCrestUrl <- Match.AwayTeam.CrestUrl
         CreateMap<Match, MatchDto>();
         CreateMap<Team, TeamDto>();
+        CreateMap<Match, MatchDetailDto>().ForMember(dto => dto.TotalBets, options => options.MapFrom(match => match.Bets.Count));
     }
 }
 

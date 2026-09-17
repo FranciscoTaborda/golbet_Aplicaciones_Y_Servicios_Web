@@ -10,7 +10,6 @@ public class TeamsController : Controller
     public TeamsController(ITeamService teamService)
         => _teamService = teamService;
 
-    // GET /Teams
     public async Task<IActionResult> Index()
     {
         var teams = await _teamService.GetAllTeamsAsync();

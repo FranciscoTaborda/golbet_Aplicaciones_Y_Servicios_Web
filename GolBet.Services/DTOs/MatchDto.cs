@@ -7,17 +7,13 @@ using GolBet.Entities.Enums;
 
 namespace GolBet.Services.DTOs;
 
-/// <summary>
-/// Read model for the match board. Flat: no navigation properties.
-/// </summary>
 public class MatchDto
 {
     public int Id { get; set; }
 
-    public DateTime Date { get; set; }              // UTC; the view converts
+    public DateTime Date { get; set; }            
     public MatchStatus Status { get; set; }
 
-    // Flattened from Match.HomeTeam / Match.AwayTeam (AutoMapper convention)
     public string HomeTeamName { get; set; } = null!;
     public string? HomeTeamCrestUrl { get; set; }
     public string AwayTeamName { get; set; } = null!;

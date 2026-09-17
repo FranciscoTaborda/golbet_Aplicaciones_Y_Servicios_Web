@@ -21,17 +21,15 @@ public class AppDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        // Team names must be unique (case- and accent-insensitive)
         modelBuilder.Entity<Team>()
             .Property(t => t.Name)
-            .UseCollation("SQL_Latin1_General_CP1_CI_AI"); //Esta parte me indica el Sensitive Case
+            .UseCollation("SQL_Latin1_General_CP1_CI_AI");
 
 
         modelBuilder.Entity<Team>()
             .HasIndex(t => t.Name)
             .IsUnique();
 
-        // Double relationship Match -> Team: convention cannot resolve it
         modelBuilder.Entity<Match>()
             .HasOne(m => m.HomeTeam)
             .WithMany()
@@ -44,14 +42,12 @@ public class AppDbContext : DbContext
             .HasForeignKey(m => m.AwayTeamId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        // A match with bets cannot be deleted
         modelBuilder.Entity<Bet>()
             .HasOne(b => b.Match)
             .WithMany(m => m.Bets)
             .OnDelete(DeleteBehavior.Restrict);
     }
 
-    // ---- Automatic audit timestamps ----
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         var utcNow = DateTime.UtcNow;
@@ -65,7 +61,6 @@ public class AppDbContext : DbContext
                     break;
                 case EntityState.Modified:
                     entry.Entity.ModifiedDate = utcNow;
-                    // CreatedDate must never change after creation
                     entry.Property(e => e.CreatedDate).IsModified = false;
                     break;
             }

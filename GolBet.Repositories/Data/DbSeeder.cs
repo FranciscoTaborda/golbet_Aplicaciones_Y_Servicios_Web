@@ -13,12 +13,10 @@ public static class DbSeeder
 {
     public static async Task SeedAsync(AppDbContext context)
     {
-        // Applies any pending migration (creates the DB if it does not exist)
         await context.Database.MigrateAsync();
 
-        if (await context.Teams.AnyAsync()) return;   // idempotence guard
+        if (await context.Teams.AnyAsync()) return;
 
-        // ---- Teams ----
         var teams = new List<Team>
         {
             new() { Name = "Atlético Nacional",       City = "Medellín",     CrestUrl = "https://placehold.co/80x80/006633/ffffff?text=NAC" },
@@ -32,14 +30,12 @@ public static class DbSeeder
         };
 
         context.Teams.AddRange(teams);
-        await context.SaveChangesAsync();   // CreatedDate stamped automatically
+        await context.SaveChangesAsync();
 
-        // ---- Matches ----
         var today = DateTime.UtcNow.Date;
 
         var matches = new List<Match>
         {
-            // Scheduled: open for betting
             new()
             {
                 HomeTeamId = teams[0].Id, AwayTeamId = teams[1].Id,    // clásico paisa
@@ -69,7 +65,6 @@ public static class DbSeeder
                 HomeOdds = 1.85m, DrawOdds = 3.40m, AwayOdds = 4.20m
             },
  
-            // InProgress: betting closed, no result yet
             new()
             {
                 HomeTeamId = teams[3].Id, AwayTeamId = teams[6].Id,
@@ -78,7 +73,6 @@ public static class DbSeeder
                 HomeOdds = 2.60m, DrawOdds = 3.05m, AwayOdds = 2.80m
             },
  
-            // Finished: has a final score
             new()
             {
                 HomeTeamId = teams[1].Id, AwayTeamId = teams[2].Id,
