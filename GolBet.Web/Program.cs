@@ -2,7 +2,6 @@ using GolBet.Repositories.Data;
 using GolBet.Repositories.Implementations;
 using GolBet.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using GolBet.Repositories.Data;
 using GolBet.Services.Implementations;
 using GolBet.Services.Interfaces;
 using GolBet.Services.Mapping;
